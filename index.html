@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact Us</title>
+  <meta name="description" content="Contact — support email, phone, address, and quick contact form." />
+  <style>
+    :root{
+      --bg:#f6f8fb;
+      --card:#ffffff;
+      --muted:#6b7280;
+      --accent:#0f6cff;
+      --accent-2:#0b5bd6;
+      --radius:14px;
+      --container:1100px;
+      --glass: rgba(255,255,255,0.6);
+      --shadow: 0 6px 20px rgba(14,30,60,0.08);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:
+        linear-gradient(180deg, rgba(15,108,255,0.03) 0%, rgba(11,91,214,0.00) 60%),
+        var(--bg);
+      color:#0f1724;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      padding:40px 16px;
+      box-sizing:border-box;
+    }
+
+    .wrap{width:100%;max-width:var(--container);}
+
+    header.site{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:8px;
+      margin-bottom:22px;
+    }
+    h1{margin:0;font-size:32px;font-weight:700}
+    p.lead{margin:6px 0 0;color:var(--muted);font-size:15px}
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:24px;
+      margin-top:10px;
+    }
+
+    /* Left main card */
+    .card{
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:26px;
+      box-shadow:var(--shadow);
+    }
+
+    .contact-cards{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin:10px 0 18px 0;
+    }
+    .info-card{
+      flex:1 1 190px;
+      background:linear-gradient(180deg, rgba(15,108,255,0.03), rgba(255,255,255,0));
+      border-radius:12px;
+      padding:12px 14px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      min-width:0;
+    }
+    .icon{
+      width:44px;height:44px;border-radius:10px;
+      display:grid;place-items:center;
+      background:var(--glass);
+      box-shadow:0 4px 14px rgba(15,108,255,0.06);
+      flex:0 0 44px;
+    }
+    .info-card small{display:block;color:var(--muted);font-size:12px}
+    .info-card strong{display:block;font-size:15px;margin-top:2px}
+
+    /* Form */
+    form.contact-form{display:flex;flex-direction:column;gap:12px;margin-top:12px}
+    .row{display:flex;gap:12px}
+    .row .field{flex:1}
+    label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px}
+    input[type="text"],input[type="email"],textarea{
+      width:100%;padding:12px;border-radius:10px;border:1px solid #e6e9ef;background:transparent;
+      font-size:14px;box-sizing:border-box;
+    }
+    textarea{min-height:120px;resize:vertical}
+    .btn{
+      display:inline-flex;gap:8px;align-items:center;padding:12px 16px;border-radius:10px;
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;border:0;cursor:pointer;
+      font-weight:600;font-size:15px;
+      box-shadow: 0 8px 24px rgba(11,91,214,0.14);
+    }
+    .muted-note{font-size:13px;color:var(--muted);margin-top:8px}
+
+    /* Right column */
+    .side{
+      display:flex;flex-direction:column;gap:16px;
+      position:relative;
+      top:0;
+    }
+    .contact-quick{
+      padding:18px;border-radius:12px;background:linear-gradient(180deg,#fff, #fbfdff);box-shadow:var(--shadow);
+    }
+    .phone{
+      font-weight:700;font-size:18px;margin-top:6px;
+    }
+    .support-hours, .address{color:var(--muted);font-size:14px;margin-top:8px}
+    .socials{display:flex;gap:10px;margin-top:12px}
+    .socials a{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:10px;background:var(--glass);text-decoration:none;color:var(--muted)}
+
+    .address-card{
+      border-radius:12px;overflow:hidden;background:linear-gradient(180deg,#fff,#fbfdff);
+      box-shadow:var(--shadow);padding:16px;text-align:left;
+    }
+    .address-card strong{display:block;margin-bottom:6px}
+
+    footer.sitefoot{margin-top:18px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 24px;
+      background: linear-gradient(90deg,var(--accent),var(--accent-2));
+      color: #fff;
+      padding: 12px 16px;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(11,91,214,0.18);
+      transform: translateY(10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease, transform .25s ease;
+      z-index: 9999;
+      max-width: 320px;
+      font-weight:600;
+    }
+    .toast.show{opacity:1;transform: translateY(0);pointer-events:auto}
+
+    /* small screens */
+    @media (max-width:900px){
+      .grid{grid-template-columns:1fr; }
+      .side{order:2}
+      header.site{align-items:flex-start}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="site">
+      <h1>Contact Us</h1>
+      <p class="lead">We’re here to help — reach out by email, phone, or message below.</p>
+    </header>
+
+    <div class="grid">
+      <!-- LEFT: main contact + form -->
+      <main class="card" aria-labelledby="contact-heading">
+        <h2 id="contact-heading" style="margin:0 0 8px 0">Get in touch</h2>
+        <p style="margin:0;color:var(--muted)">Use the form below or reach out directly by phone or email. We try to reply within 1 business day.</p>
+
+        <div class="contact-cards" role="list" aria-label="Contact methods">
+          <div class="info-card" role="listitem" title="Email">
+            <div class="icon" aria-hidden="true">
+              <!-- mail icon -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 7.5L12 13L21 7.5" stroke="#0f1724" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div style="min-width:0">
+              <small>Email</small>
+              <strong><a href="mailto:jbownedits@gmail.com" style="text-decoration:none;color:inherit">jbownedits@gmail.com</a></strong>
+            </div>
+          </div>
+
+          <div class="info-card" role="listitem" title="Phone">
+            <div class="icon" aria-hidden="true">
+              <!-- phone icon -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.86 19.86 0 0 1-3.07-8.63A2 2 0 0 1 4.09 2h3a2 2 0 0 1 2 1.72c.12 1.21.45 2.4.97 3.53a2 2 0 0 1-.45 2.11L8.91 11.09a16 16 0 0 0 6 6l1.73-1.73a2 2 0 0 1 2.11-.45c1.13.52 2.32.85 3.53.97A2 2 0 0 1 22 16.92z" stroke="#0f1724" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <small>Phone</small>
+              <strong class="phone"><a href="tel:+919361959708" style="text-decoration:none;color:inherit">+91 93619 59708</a></strong>
+            </div>
+          </div>
+
+          <div class="info-card" role="listitem" title="Address">
+            <div class="icon" aria-hidden="true">
+              <!-- map pin -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 11.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" stroke="#0f1724" stroke-width="1.2"/><path d="M12 22s8-4.5 8-11A8 8 0 1 0 4 11c0 6.5 8 11 8 11z" stroke="#0f1724" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <small>Address</small>
+              <strong>D No 17/1-61D, NESAVALARKALANI, SAMRAJPETTAI, MECHERI, METTUR SALEM, TAMILNADU-636451</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact form (sends email via mailto) -->
+        <section aria-labelledby="form-heading" style="margin-top:8px">
+          <h3 id="form-heading" style="margin:0 0 8px 0;font-size:18px">Send a message</h3>
+          <form class="contact-form" id="contactForm" onsubmit="sendEmail(event)">
+            <div class="row">
+              <div class="field">
+                <label for="name">Your name</label>
+                <input id="name" name="name" type="text" placeholder="Your full name" required />
+              </div>
+              <div class="field">
+                <label for="phone">Phone (optional)</label>
+                <input id="phone" name="phone" type="text" placeholder="+91 93619 59708" />
+              </div>
+            </div>
+
+            <div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="you@example.com" required />
+            </div>
+
+            <div>
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Tell us what's going on..." required></textarea>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:12px;margin-top:6px">
+              <button type="submit" class="btn">Send message</button>
+              <div class="muted-note">You can also email us directly at <a href="mailto:jbownedits@gmail.com">jbownedits@gmail.com</a></div>
+            </div>
+          </form>
+        </section>
+      </main>
+
+      <!-- RIGHT: quick contact info and address -->
+      <aside class="side">
+        <div class="contact-quick">
+          <strong style="display:block">Quick contact</strong>
+          <div style="margin-top:6px;color:var(--muted)">Prefer to call or WhatsApp? Use the number below.</div>
+
+          <div style="margin-top:12px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <div style="width:12px;height:12px;border-radius:50%;background:#20c997"></div>
+              <div style="font-size:13px;color:var(--muted)">Support status: <strong style="color:#0f1724">Online</strong></div>
+            </div>
+
+            <div class="phone" style="margin-top:8px"><a href="tel:+919361959708" style="text-decoration:none;color:inherit">+91 93619 59708</a></div>
+            <div class="support-hours">Mon–Sat · 10:00 AM — 6:00 PM</div>
+
+            <div class="socials" aria-label="Social links" style="margin-top:10px">
+              <a href="#" title="Instagram" aria-label="Instagram">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="#0f1724" stroke-width="1.1"/></svg>
+              </a>
+              <a href="#" title="YouTube" aria-label="YouTube">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M10 8l6 4-6 4V8z" stroke="#0f1724" stroke-width="1.1"/></svg>
+              </a>
+              <a href="#" title="Facebook" aria-label="Facebook">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M18 2h-3a4 4 0 0 0-4 4v3H8v4h3v8h4v-8h3l1-4h-4V6a1 1 0 0 1 1-1h2z" stroke="#0f1724" stroke-width="1.1"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="address-card" aria-label="Postal address">
+          <strong>Postal Address</strong>
+          <div class="address">
+            D No 17/1-61D, NESAVALARKALANI<br>
+            SAMRAJPETTAI, MECHERI, METTUR SALEM<br>
+            TAMILNADU-636451<br>
+            India
+          </div>
+          <div style="margin-top:10px;color:var(--muted);font-size:13px">
+            For official correspondence and invoicing.
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <footer class="sitefoot">
+      <div>© <strong>JBOWN Edits</strong> — All rights reserved.</div>
+      <div>
+        <a href="/privacy.html">Privacy Policy</a> ·
+        <a href="/terms.html">Terms & Conditions</a> ·
+        <a href="/refund.html">Refund Policy</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Toast element -->
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true" style="display:none"></div>
+
+  <script>
+    // Simple mailto submit handler — shows professional toast, then opens email client.
+    function sendEmail(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if(!name || !email || !message){
+        showToast('Please fill all required fields.');
+        return;
+      }
+
+      // Build mailto
+      const to = 'jbownedits@gmail.com'; // <-- replace if needed
+      const subject = encodeURIComponent('Website contact from ' + name);
+      const bodyLines = [
+        'Name: ' + name,
+        'Phone: ' + phone,
+        'Email: ' + email,
+        '',
+        'Message:',
+        message
+      ];
+      const body = encodeURIComponent(bodyLines.join('\n'));
+      const mailto = mailto:${to}?subject=${subject}&body=${body};
+
+      // Show professional confirmation toast (user sees it before email opens)
+      showToast('Thank you — your message has been received. We will reply within 1 business day.');
+
+      // wait a short time so the user sees the toast, then open email client
+      setTimeout(() => {
+        window.location.href = mailto;
+      }, 900);
+    }
+
+    function showToast(text){
+      const toast = document.getElementById('toast');
+      toast.textContent = text;
+      toast.style.display = 'block';
+      requestAnimationFrame(()=>{ toast.classList.add('show'); });
+
+      clearTimeout(window._toastTimeout);
+      window._toastTimeout = setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(()=>{ toast.style.display = 'none'; }, 300);
+      }, 3200);
+    }
+  </script>
+</body>
+</html>
